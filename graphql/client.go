@@ -132,6 +132,7 @@ type Response struct {
 	Data       interface{}            `json:"data"`
 	Extensions map[string]interface{} `json:"extensions,omitempty"`
 	Errors     gqlerror.List          `json:"errors,omitempty"`
+	Headers    http.Header            `json:"headers,omitempty"`
 }
 
 func (c *client) MakeRequest(ctx context.Context, req *Request, resp *Response) error {
@@ -157,6 +158,8 @@ func (c *client) MakeRequest(ctx context.Context, req *Request, resp *Response) 
 		return err
 	}
 	defer httpResp.Body.Close()
+
+	resp.Headers = httpResp.Header
 
 	if httpResp.StatusCode != http.StatusOK {
 		var respBody []byte
