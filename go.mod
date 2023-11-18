@@ -1,4 +1,4 @@
-module github.com/Khan/genqlient
+module github.com/vanstinator/genqlient
 
 go 1.18
 
